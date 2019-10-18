@@ -1,0 +1,37 @@
+﻿@model IEnumerable<CargoApp.Models.CargoProcess>
+
+
+<div>
+    <p style="margin-top:50px;"></p>
+   
+    @foreach (var item in Model)
+    {
+   
+        <div class="custom-control custom-checkbox ml-5 mt-1">
+            <input type="checkbox" class="custom-control-input" id="customCheckDisabled_@(item.CargoProcessId.ToString())" checked>
+            <label class="custom-control-label" for="customCheckDisabled_@(item.CargoProcessId.ToString())">@item.Explanation</label>
+        </div>
+    
+    }
+</div>
+
+@*<div>
+
+        <form id="p1" class="was-validated mt-4 ml-4">
+            <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="customControlValidation1" checked required>
+                <label class="custom-control-label" for="customControlValidation1">yaasdqwd</label>
+                <br />
+                <input type="checkbox" class="custom-control-input" id="customControlValidation1" checked required>
+                <label class="custom-control-label" for="customControlValidation1">Check this custom checkbox</label>
+                <br />
+                <input type="checkbox" class="custom-control-input" id="customControlValidation1" checked required>
+                <label class="custom-control-label" for="customControlValidation1">Check this custom checkbox</label>
+                <br />
+                <input type="checkbox" class="custom-control-input" id="customControlValidation1" required>
+                <label class="custom-control-label" for="customControlValidation1">Check this custom checkbox</label>
+            </div>
+
+        </form>
+    </div>*@
+

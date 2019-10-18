@@ -1,0 +1,177 @@
+﻿@model CargoApp.Models.Cargo
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <!-- <h1 class="h3 mb-4 text-gray-800">Kargo Takip</h1> -->
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Kargo Takip</h6>
+                </div>
+                <div class="card-body">
+                    <p>Sorguladığınız gönderinin bilgilerine aşağıdan ulaşabilirsiniz. </p>
+
+                    <div class="mb-2">
+                        <code class="ml-2">Kargo numarasını giriniz</code>
+                        <input type="text" id="cargoNumberTextID" class="form-control form-control-user rounded-pill mt-2" placeholder="Please enter the cargo number...">
+                        <button type="submit" class="btn btn-outline-primary btn-user btn-block rounded-pill mt-2" onclick="getcargo()">Submit</button>
+                    </div>
+
+                    @if (ViewBag.Information != null)
+                    {
+
+                        <div class="alert alert-success mt-3 p-2" role="alert">
+                            @ViewBag.Information <i class="far fa-check-circle"></i>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+
+            <div id="cargolar">
+                @* Buraya _GetCargoResult'daki partial view gelecek *@
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function getcargo() {
+
+
+        var cargoNumber = $('#cargoNumberTextID').val();
+
+        console.log(cargoNumber);
+
+        if (cargoNumber !=="") {
+            $.ajax({
+            type: 'GET',
+
+              url: '@Url.Action("GetCargoPartialView", "Kargo")',
+              data: { CargoNumber: cargoNumber },
+
+            success: function (result) {
+                $("#cargolar").html(result);  //burası çok kritik
+            },
+
+            error: function () {
+                alert('Kargo numarasını doğru girdiğinizden emin olun. Kayıt bulunamadı!');
+            }
+        }).done(function () {
+            $("#thisbutton").show();
+
+            //preloaderı burada kapatırsın
+        });
+
+        }
+        else {
+            alert("Lütfen önce kargo numarasını giriniz!");
+        }
+
+    };
+
+    //$("#kargoButton").animate(function() {
+       //bbunlara bakarsın işte, onun haricinde ajax konusunu derinlemesine öğren, istersen preloader da koyarsın
+    //});
+
+</script>
+
+<!-- Brand Buttons -->
+@*<div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Brand Buttons</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>Google and Facebook buttons are available featuring each company's respective brand color. They are used on the user login and registration pages.</p>
+                        <p>You can create more custom buttons by adding a new color variable in the <code>_variables.scss</code> file and then using the Bootstrap button variant mixin to create a new style, as demonstrated in the <code>_buttons.scss</code> file.</p>
+                        <a href="#" class="btn btn-google btn-block"><i class="fab fa-google fa-fw"></i> .btn-google</a>
+                        <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f fa-fw"></i> .btn-facebook</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Split Buttons with Icon</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>Works with any button colors, just use the <code>.btn-icon-split</code> class and the markup in the examples below. The examples below also use the <code>.text-white-50</code> helper class on the icons for additional styling, but it is not required.</p>
+                        <a href="#" class="btn btn-primary btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                            <span class="text">Split Button Primary</span>
+                        </a>
+                        <div class="my-2"></div>
+                        <a href="#" class="btn btn-success btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Split Button Success</span>
+                        </a>
+                        <div class="my-2"></div>
+                        <a href="#" class="btn btn-info btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-info-circle"></i>
+                            </span>
+                            <span class="text">Split Button Info</span>
+                        </a>
+                        <div class="my-2"></div>
+                        <a href="#" class="btn btn-warning btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </span>
+                            <span class="text">Split Button Warning</span>
+                        </a>
+                        <div class="my-2"></div>
+                        <a href="#" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span class="text">Split Button Danger</span>
+                        </a>
+                        <div class="my-2"></div>
+                        <a href="#" class="btn btn-secondary btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                            <span class="text">Split Button Secondary</span>
+                        </a>
+                        <div class="my-2"></div>
+                        <a href="#" class="btn btn-light btn-icon-split">
+                            <span class="icon text-gray-600">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                            <span class="text">Split Button Primary</span>
+                        </a>
+                        <div class="mb-4"></div>
+                        <p>Also works with small and large button classes!</p>
+                        <a href="#" class="btn btn-primary btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                            <span class="text">Split Button Small</span>
+                        </a>
+                        <div class="my-2"></div>
+                        <a href="#" class="btn btn-primary btn-icon-split btn-lg">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                            <span class="text">Split Button Large</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<!-- /.container-fluid -->
+<!-- End of Main Content -->

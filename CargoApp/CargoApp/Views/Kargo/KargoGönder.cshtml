@@ -1,0 +1,88 @@
+﻿@model CargoApp.ViewModels.KargoGönderViewmodel
+
+@{ 
+    string no = "";
+
+    string SiparisKoduOlustur()
+
+    {
+
+        Random rakam = new Random();
+
+        for (int i = 0; i < 10; i++)
+
+        {
+
+            no += rakam.Next(0, 10).ToString();
+
+        }
+
+        return no;
+
+    }
+
+}
+
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <!-- <h1 class="h3 mb-4 text-gray-800">Kargo Takip</h1> -->
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Kargo Gönder</h6>
+                </div>
+                <div class="card-body">
+                    <p>Lütfen aşağıdaki bilgileri istenilen şekilde doldurunuz </p>
+
+                    <div class="mb-2">
+                        @using (Html.BeginForm("KargoGönder", "Kargo", FormMethod.Post))
+                        {
+                         
+                            <p style="letter-spacing:15px; color:#4e73df;"><b>@SiparisKoduOlustur()</b></p>
+                            <code class="ml-2">Yukarıdaki verilen kargo numarası 4 4 2 formatında yazınız: ****<sub>4</sub> ****<sub>4</sub> **<sub>2</sub> = 4785 5874 32</code>
+                            <input type="text" id="cargoNumberTextID" class="form-control form-control-user rounded-pill mt-2" placeholder="Please enter the cargo number..." name="cargonumber">
+                            @Html.ValidationMessageFor(m => m.cargonumber, "", new { @class = "text-warning" })
+                            <code style="display:block;" class="ml-2 mt-4 mb-2">Lütfen bir kategori seçin</code>
+                            <select class="form-control rounded-pill" id="sel1" name="kategoriler">
+                                <option>Select a category...</option>
+                                <option value="1">Small</option>
+                                <option value="2">Medium</option>
+                                <option value="3">Large</option>
+                            </select>
+                            @Html.ValidationMessageFor(m => m.kategoriler, "", new { @class = "text-warning" })
+                            <code style="display:block;" class="ml-2 mt-4 mb-2">Lütfen bir statü seçin</code>
+                            <select class="form-control rounded-pill" id="sel1" name="statuler">
+                                <option>Select a status...</option>
+                                <option value="1">İşleme alındı... </option>
+                                <option value="2">Ürün hazırlanıyor... </option>
+                                <option value="3">Ürün kargoya verildi... </option>
+                                <option value="4">Ürün dağıtıma çıktı... </option>
+                                <option value="5">Ürün teslim edildi </option>
+                            </select>
+                            @Html.ValidationMessageFor(m => m.statuler, "", new { @class = "text-warning" })
+
+                            <button type="submit" class="btn btn-outline-primary btn-user btn-block rounded-pill mt-2">Submit</button>
+
+                            if (ViewBag.Information != null)
+                            {
+
+                                <div class="alert alert-success mt-3 p-2" role="alert">
+                                    @ViewBag.Information <i class="far fa-check-circle"></i>
+                                </div>
+
+                            }
+
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

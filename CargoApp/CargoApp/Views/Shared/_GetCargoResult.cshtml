@@ -1,0 +1,177 @@
+﻿@model CargoApp.Models.Cargo
+
+
+
+@*<div class="col-md-8">
+        <p>Partial Viewden gelmektedir</p>
+        <h2 style="color:red"> @Model.CargoNumber </h2>
+    </div>*@
+
+@{
+    string test = DateTime.Now.AddDays(5).ToString("dd.MM.yyyy");
+}
+
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="~/Kt/css/kargotakip-style.css" rel="stylesheet" type="text/css" media="all" />
+
+<style>
+    .tooltip-inner {
+        background-color: #00acd6 !important;
+        /*!important is not necessary if you place custom.css at the end of your css calls. For the purpose of this demo, it seems to be required in SO snippet*/
+        color: #fff;
+    }
+
+    .tooltip.top .tooltip-arrow {
+        border-top-color: #00acd6;
+    }
+
+    .tooltip.right .tooltip-arrow {
+        border-right-color: #00acd6;
+    }
+
+    .tooltip.bottom .tooltip-arrow {
+        border-bottom-color: #00acd6;
+    }
+
+    .tooltip.left .tooltip-arrow {
+        border-left-color: #00acd6;
+    }
+</style>
+
+<div class="header">
+    <h1>Cargoo<sup>Tr</sup></h1>
+</div>
+<div class="content">
+    <div class="content1">
+        <h2>Takip No: @Model.CargoNumber </h2>
+    </div>
+    <div class="content2">
+        <div class="content2-header1">
+            <p>Shipped Via : <span>CPT Truck</span></p>
+        </div>
+        <div class="content2-header1">
+            <p>
+                Status :
+                @if (Model.CargoStatus != null)
+                {
+                    <span>@Model.CargoStatus.StatusName</span>
+                }
+            </p>
+        </div>
+        <div class="content2-header1">
+            <p>Expected Date : <span>@test</span></p>
+        </div>
+        <div class="content2-header1">
+            <p>
+                Category :
+                @if (Model.Category != null)
+                {
+                    <span>
+                        @Model.Category.CategoryName
+                    </span>
+                }
+
+            </p> 
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="content3">
+        <div class="shipment">
+            <div class="confirm">
+                <div class="imgcircle">
+                    <img src="~/Kt/kargotakip-img/confirm.png" alt="confirm order">
+                </div>
+                <span class="line"></span>
+                <p>İşleme alındı...</p>
+            </div>
+            <div class="process">
+                <div class="imgcircle">
+                    <img src="~/Kt/kargotakip-img/process.png" alt="process order">
+                </div>
+                <span class="line"></span>
+                <p>Ürün hazırlanıyor...</p>
+            </div>
+            <div class="quality">
+                <div class="imgcircle">
+                    <img src="~/Kt/kargotakip-img/quality.png" alt="quality check">
+                </div>
+                <span class="line"></span>
+                <p>Ürün kargoya verildi...</p>
+            </div>
+            <div class="dispatch">
+                <div class="imgcircle">
+                    <img src="~/Kt/kargotakip-img/dispatch.png" alt="dispatch product">
+                </div>
+                <span class="line"></span>
+                <p>Ürün dağıtıma çıktı...</p>
+            </div>
+            <div class="delivery">
+                <div class="imgcircle">
+                    <img src="~/Kt/kargotakip-img/delivery.png" alt="delivery">
+                </div>
+                <p>Ürün teslim edildi</p>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="content-4">
+        <button type="submit" id="cp1" class="btn btn-info" onclick="getprocess(2)" style="margin-left:75px" data-toggle="tooltip" data-placement="bottom" title="Detay"></button>
+        <button type="submit" id="cp2" class="btn btn-info" onclick="getprocess(4)" style="margin-left:170px" data-toggle="tooltip" data-placement="bottom" title="Detay"></button>
+        <button type="submit" id="cp3" class="btn btn-info" onclick="getprocess(6)" style="margin-left:170px" data-toggle="tooltip" data-placement="bottom" title="Detay"></button>
+        <button type="submit" id="cp4" class="btn btn-info" onclick="getprocess(8)" style="margin-left:170px" data-toggle="tooltip" data-placement="bottom" title="Detay"></button>
+        <button type="submit" id="cp5" class="btn btn-info" onclick="getprocess(10)" style="margin-left:170px" data-toggle="tooltip" data-placement="bottom" title="Detay"></button>
+    </div>
+ 
+    <div id="processler">
+      @* Buraya _GetCargoProcess'deki view gelecek *@
+    </div>
+</div>
+
+<script type="text/javascript">
+    //$("#p1").hide();
+    //$("#p2").hide();
+
+    //$("#cp1").click(function () {
+    //    $("#p1").toggle(1000);
+
+    //});
+
+    //$("#cp2").click(function () {
+    //    $("#p2").toggle(1000);
+
+    //});
+
+    //$("#cp1").on("mouseenter", function () {
+    //    $("#p1").css("display", "block");
+    //}).on("mouseleave", function () {
+    //    $("#p1").css("display", "none");
+    //});
+
+    function getprocess(gelenDeger) {
+        $.ajax({
+            type: 'GET',
+
+            @*url: '@Url.Action("GetCargoProcessPartialView", "Kargo")',*@
+            url: '/Kargo/GetCargoProcessPartialView/' + gelenDeger,
+
+            success: function (result) {
+                $("#processler").html("");
+                $("#processler").html(result);  
+            },
+
+            error: function () {
+                alert('hata var usta kontrol et');
+            }
+        }).done(function () {
+            $("#thisbutton").show();
+
+         })
+
+    };
+    
+    // Tooltip için
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+</script>
