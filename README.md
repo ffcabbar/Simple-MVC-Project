@@ -6,54 +6,6 @@ There is a simple mvc project. Code examples of many concepts are available. I u
 [Visual Studio](https://visualstudio.microsoft.com/tr/vs/) - Download
 
 
-## Simple example of code
-```bash
-data
-string1: .asciiz "Enter a number:"
-string2: .asciiz "Enter the secon number:"
-string3: .asciiz "Sum:"
-endLine: .asciiz "\n"
-
-.text
-main:
-
-	li $v0 , 4				#print string1 
-	la $a0 , string1  
-	syscall
-
-	li $v0 , 5	 			#read integer
-	syscall
-	
-	move $t0,$v0            #Girdiğimiz integer değeri temporary(geçici) değere akttardık.
-	
-	li $v0 , 4
-	la $a0 , endLine        #Boşluk vermek için. 
-	syscall
-	
-	li $v0 , 4
-	la $a0 , string2        
-	syscall
-	
-	li $v0 , 5
-	syscall
-	
-	move $t1,$v0             
-	
-	li $v0 , 4
-	la $a0 , string3
-	syscall
-	
-	add $t2,$t1,$t0			#İki tane yazdığımız integer değerleri toplayıp $t2 temporary değere aktardık.s
-	li $v0, 1			    #print integer
-	move $a0, $t2			#Temporary değeri a0 a aktardık.
-	syscall
-	
-		 
-	li $v0, 10              #exit
-	syscall
-	
-
-
-```
-
-
+## A good resource - Click the link for more
+What is MVC? Why use MVC? It's a very vast topic to explain. I will explain what MVC is. It’s just a three layer architecture where M stands for MODEL, V stands for VIEW, and the most important part in this architecture is CONTROLLER, like a Hero of any film. Thus, every layer in MVC is assigned with a unique responsibility. So, the View is for the look and feel as well as for positioning what the end user will actually see. The model supplies the data and business logic. So, the models are nothing but just a class, like employee, student etc. and a model can interact with the data access layer, some kind of service, like WCF Service or Web Service, which gives the data. The controller is actually the heart of MVC and as I mentioned above, like a film Hero, it deals with both the layers. This is why the controller is also called the coordinator between the Model and View.
+[Click for more]([Visual Studio](https://visualstudio.microsoft.com/tr/vs/))
